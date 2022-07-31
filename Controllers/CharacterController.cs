@@ -1,22 +1,36 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Service.CharacterService;
 
 namespace Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CharactelController : ControllerBase
+    public class CharacterController : ControllerBase
     {
-        private static Character knight = new Character();
+        private readonly ICharacterService _characterService;
 
-        [HttpGet]
-        public IActionResult Get()
+        public CharacterController(ICharacterService characterService)
         {
-            return Ok(knight);
+            this._characterService = characterService;            
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<List<Character>>> Get()
+        {
+            return Ok(await _characterService.GetAllCharacters());
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Character>> GetSingle(int id)
+        {
+            return Ok(await _characterService.GetCharacterById(id));
+        }
+
+        [HttpPost("controller")]
+        public async Task<ActionResult<List<Character>>> AddCharacter(Character newCharacter)
+        {
+            return Ok(await _characterService.AddCharacter(newCharacter));
         }
     }
 }
