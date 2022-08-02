@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Dtos.Character;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Service.CharacterService;
 
 namespace Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class CharacterController : ControllerBase
@@ -24,7 +27,7 @@ namespace Controllers
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Get()
         {
             return Ok(await _characterService.GetAllCharacters());
-        } 
+        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<List<GetCharacterDto>>>> Delete(int id)
