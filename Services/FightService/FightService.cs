@@ -1,13 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Data;
-using Dtos.Fight;
-using Microsoft.EntityFrameworkCore;
-using Models;
-
 namespace Services.FightService
 {
     public class FightService : IFightService
@@ -30,7 +20,7 @@ namespace Services.FightService
 
             try
             {
-                var characters = await _context.Characters 
+                var characters = await _context.Characters
                     .Include(c => c.Weapon)
                     .Include(c => c.Skills)
                     .Where(c => request.CharacterIds.Contains(c.Id)).ToListAsync();
@@ -58,7 +48,7 @@ namespace Services.FightService
                                 attackUsed = skill.Name;
                                 damage = DoSkillAttack(attacker, opponent, skill);
                             }
-                            
+
                             response.Data.Log
                                 .Add($"{attacker.Name} attacks {opponent.Name} using {attackUsed} with {(damage >=0 ? damage : 0)} damage.");
 
@@ -74,7 +64,7 @@ namespace Services.FightService
                         }
                     }
 
-                    characters.ForEach(c => 
+                    characters.ForEach(c =>
                     {
                         c.Fights++;
                         c.HitPoints = 100;
@@ -197,7 +187,7 @@ namespace Services.FightService
                 .ThenBy(c => c.Defeats)
                 .ToListAsync();
 
-                var response = new ServiceResponse<List<HighscoreDto>> 
+                var response = new ServiceResponse<List<HighscoreDto>>
                 {
                     Data = characters.Select(c => _mapper.Map<HighscoreDto>(c)).ToList()
                 };

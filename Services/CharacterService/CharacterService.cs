@@ -1,18 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using AutoMapper;
-using Data;
-using Dtos.Character;
-using Microsoft.EntityFrameworkCore;
-using Models;
-
 namespace Service.CharacterService
 {
     public class CharacterService : ICharacterService
-    {       
+    {
         private readonly IMapper _mapper;
         private readonly DataContext _context;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -49,7 +38,7 @@ namespace Service.CharacterService
             {
                 Character character = await _context.Characters
                     .FirstOrDefaultAsync(c => c.Id == id && c.User.Id == GetUserId());
-                
+
                 if(character != null)
                 {
                     _context.Characters.Remove(character);
@@ -69,7 +58,7 @@ namespace Service.CharacterService
             {
                 response.Success = false;
                 response.Message = ex.Message;
-            }           
+            }
 
             return response;
         }
@@ -83,7 +72,7 @@ namespace Service.CharacterService
             response.Data = dbCharacters.Select(c => _mapper.Map<GetCharacterDto>(c)).ToList();
             return response;
         }
-        
+
         public async Task<ServiceResponse<GetCharacterDto>> GetCharacterById(int id)
         {
             var serviceResponse = new ServiceResponse<GetCharacterDto>();
@@ -104,7 +93,7 @@ namespace Service.CharacterService
                 var character = await _context.Characters
                     .Include(c => c.User)
                     .FirstOrDefaultAsync(c => c.Id == updatedCracter.Id);
-                
+
                 if (character.User.Id == GetUserId())
                 {
                     character.Name = updatedCracter.Name;
@@ -115,14 +104,14 @@ namespace Service.CharacterService
                     character.Class = updatedCracter.Class;
 
                     await _context.SaveChangesAsync();
-                
+
                     response.Data = _mapper.Map<GetCharacterDto>(character);
                 }
                 else
                 {
                     response.Success = false;
                     response.Message = "Character not found.";
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -141,7 +130,7 @@ namespace Service.CharacterService
                 var character = await _context.Characters
                     .Include(c => c.Weapon)
                     .Include(c => c.Skills)
-                    .FirstOrDefaultAsync(c => c.Id == newCharacterSkill.CharacterId && 
+                    .FirstOrDefaultAsync(c => c.Id == newCharacterSkill.CharacterId &&
                     c.User.Id == GetUserId());
 
                 if(character == null)

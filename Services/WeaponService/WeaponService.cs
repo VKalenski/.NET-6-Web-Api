@@ -1,15 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using AutoMapper;
-using Data;
-using Dtos.Character;
-using Dtos.Weapon;
-using Microsoft.EntityFrameworkCore;
-using Models;
-
 namespace Services.WeaponService
 {
     public class WeaponService : IWeaponService
