@@ -1,13 +1,24 @@
-using Data;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using Service.CharacterService;
-using Services.FightService;
-using Services.WeaponService;
-using Swashbuckle.AspNetCore.Filters;
+global using AutoMapper;
+global using Data;
+global using Dtos.Character;
+global using Dtos.Character.User;
+global using Dtos.Fight;
+global using Dtos.Skill;
+global using Dtos.Weapon;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Authorization;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.IdentityModel.Tokens;
+global using Microsoft.OpenApi.Models;
+global using Models;
+global using Service.CharacterService;
+global using Services.FightService;
+global using Services.WeaponService;
+global using Swashbuckle.AspNetCore.Filters;
+global using System.IdentityModel.Tokens.Jwt;
+global using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
