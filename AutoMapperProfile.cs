@@ -1,14 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using Dtos.Character;
-using Dtos.Fight;
-using Dtos.Skill;
-using Dtos.Weapon;
-using Models;
-
 namespace _NET_6_Web_Api
 {
     public class AutoMapperProfile : Profile
@@ -20,6 +9,6 @@ namespace _NET_6_Web_Api
             CreateMap<Weapon, GetWeaponDto>();
             CreateMap<Skill, GetSkillDto>();
             CreateMap<Character, HighscoreDto>();
-        }        
+        }
     }
 }
