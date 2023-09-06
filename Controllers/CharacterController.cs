@@ -1,14 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Dtos.Character;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Models;
-using Service.CharacterService;
-
 namespace Controllers
 {
     [Authorize]
@@ -20,7 +9,7 @@ namespace Controllers
 
         public CharacterController(ICharacterService characterService)
         {
-            this._characterService = characterService;            
+            this._characterService = characterService;
         }
 
         [HttpGet("GetAll")]
@@ -35,7 +24,7 @@ namespace Controllers
             var response = await _characterService.DeleteCharacter(id);
             if(response == null)
             {
-                return NotFound(response); 
+                return NotFound(response);
             }
 
             return Ok(response);
@@ -59,7 +48,7 @@ namespace Controllers
             var response = await _characterService.UpdateCharacter(updatedCracter);
             if(response == null)
             {
-                return NotFound(response); 
+                return NotFound(response);
             }
 
             return Ok(response);

@@ -1,14 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Dtos.Fight;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Models;
-using Services.FightService;
-
 namespace Controllers
 {
     [ApiController]
@@ -18,7 +7,7 @@ namespace Controllers
         private readonly IFightService _fightService;
         public FightController(IFightService fightService)
         {
-            _fightService = fightService;              
+            _fightService = fightService;
         }
 
         [HttpPost("Weapon")]

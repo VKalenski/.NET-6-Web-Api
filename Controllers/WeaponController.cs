@@ -1,14 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Dtos.Character;
-using Dtos.Weapon;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Models;
-using Services.WeaponService;
-
 namespace Controllers
 {
     [Authorize]
@@ -26,7 +15,7 @@ namespace Controllers
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<GetCharacterDto>>> AddWeapon(AddWeaponDto newWeapon)
         {
-            return Ok(await _weaponService.AddWeapon(newWeapon));            
+            return Ok(await _weaponService.AddWeapon(newWeapon));
         }
     }
 }
